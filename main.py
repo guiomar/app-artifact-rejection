@@ -33,18 +33,22 @@ fname = config['epo']
 raw = mne.io.read_raw_fif(fname)
 
 decim = config['decim'] #2
-method = config['method'] #2
+clean_epochs_bool = config['clean_epochs']
+method = config['method'] 
 
 # == AUTOREJECT ==
 
-# Repair epochs (individual channels)
+if clean_epochs_bool:
 
-if method=='autoreject':
-    ar = autoreject.AutoReject()
-elif method=='ransac':
-    ar = autoreject.Ransac()
+    # Repair epochs (individual channels)
 
-epochs_clean = ar.fit_transform(epochs)
+    if method=='autoreject':
+        ar = autoreject.AutoReject()
+    elif method=='ransac':
+        ar = autoreject.Ransac()
+
+    epochs_clean = ar.fit_transform(epochs)
+    epochs_clean.save(os.path.join('out_dir','meg-epo.fif'))
 
 
 # Rejection dictionary
@@ -57,8 +61,12 @@ reject = autoreject.get_rejection_threshold(epochs, decim=decim)
 
 print('The rejection dictionary is %s' % reject)
 
+np.save(os.path.join('out_dir','reject_dict.npy'), reject) 
+
+
 # epochs.drop_bad(reject=reject)
 
 # FIFURE 1
-figure(1)
+plt.figure(1)
 ar.get_reject_log(epochs).plot()
+plt.savefig(os.path.join('out_figs','reject_log.png'))
