@@ -29,8 +29,10 @@ with open(__location__+'/config.json') as config_json:
     config = json.load(config_json)
 
 # == LOAD DATA ==
-fname = config['epo']
-raw = mne.io.read_raw_fif(fname)
+fdir = config['output']
+fname = os.listdir(fdir)[0]
+# Rename files so is MNE compliant
+epochs = mne.read_epochs(os.path.join(fdir,fname))
 
 decim = config['decim']
 clean_epochs_bool = config['clean_epochs']
