@@ -44,6 +44,7 @@ if clean_epochs_bool:
 
     # Repair epochs (individual channels)
 
+    print(method)
     if method=='autoreject':
         ar = autoreject.AutoReject()
     elif method=='ransac':
