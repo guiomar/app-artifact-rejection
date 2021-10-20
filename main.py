@@ -44,7 +44,6 @@ if clean_epochs_bool:
 
     # Repair epochs (individual channels)
 
-    print(method)
     if method=='autoreject':
         ar = autoreject.AutoReject()
     elif method=='ransac':
@@ -52,6 +51,11 @@ if clean_epochs_bool:
 
     epochs_clean = ar.fit_transform(epochs)
     epochs_clean.save(os.path.join('out_dir','meg-epo.fif'))
+
+    # FIFURE 1
+    plt.figure(1)
+    ar.get_reject_log(epochs).plot()
+    plt.savefig(os.path.join('out_figs','reject_log.png'))
 
 
 # Rejection dictionary
@@ -69,7 +73,4 @@ np.save(os.path.join('out_dir','reject_dict.npy'), reject)
 
 # epochs.drop_bad(reject=reject)
 
-# FIFURE 1
-plt.figure(1)
-ar.get_reject_log(epochs).plot()
-plt.savefig(os.path.join('out_figs','reject_log.png'))
+
