@@ -17,6 +17,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+!pip install -U autoreject
 import autoreject ## https://autoreject.github.io/
 
 
@@ -32,7 +33,7 @@ with open(__location__+'/config.json') as config_json:
 fname = config['epo']
 raw = mne.io.read_raw_fif(fname)
 
-decim = config['decim'] #2
+decim = config['decim']
 clean_epochs_bool = config['clean_epochs']
 method = config['method'] 
 
