@@ -50,12 +50,12 @@ if clean_epochs_bool:
         ar = autoreject.Ransac()
 
     epochs_clean = ar.fit_transform(epochs)
-    epochs_clean.save(os.path.join('out_dir','meg-epo.fif'))
+    #epochs_clean.save(os.path.join('out_dir','meg-epo.fif'))
 
     # FIFURE 1
-    plt.figure(1)
+    '''plt.figure(1)
     ar.get_reject_log(epochs).plot()
-    plt.savefig(os.path.join('out_figs','reject_log.png'))
+    plt.savefig(os.path.join('out_figs','reject_log.png'))'''
 
 
 # Rejection dictionary
