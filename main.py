@@ -32,7 +32,7 @@ with open(__location__+'/config.json') as config_json:
 fdir = config['output']
 fname = os.listdir(fdir)[0]
 # Rename files so is MNE compliant
-epochs = mne.read_epochs(os.path.join(fdir,fname))
+epochs = mne.read_epochs(os.path.join(fdir,fname),preload=True)
 
 decim = config['decim']
 clean_epochs_bool = config['clean_epochs']
